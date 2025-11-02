@@ -18,6 +18,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Rendre les scripts executable
+        run: chmod +x scripts/*
+
       - name: Set environment variables
         run: scripts/define_variables.sh
 
