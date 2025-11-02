@@ -52,6 +52,7 @@ jobs:
             mkdir -p /opt/gifto-front
             cd /opt/gifto-front
             if [ ! -d ".git" ]; then
+              echo ".git folder not found !"
               git clone -b $BRANCH git@github.com:sosthenenouebissi/gifto-front.git .
             else
               git fetch origin
