@@ -26,7 +26,6 @@ jobs:
             echo "SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
             echo "${{ secrets.SSH_DEV_PRIVATE_KEY }}" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
-            echo "DEPLOY_PATH=/opt/gifto-front" >> $GITHUB_ENV
             echo "BRANCH=develop" >> $GITHUB_ENV
           elif [[ (("${{ github.event_name }}" == "push") || ("${{ github.event_name }}" == "pull_request")) && "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "VPS_HOST=${{ secrets.VPS_PROD_HOST }}" >> $GITHUB_ENV
@@ -35,7 +34,6 @@ jobs:
             echo "SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
             echo "${{ secrets.SSH_PROD_PRIVATE_KEY }}" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
-            echo "DEPLOY_PATH=/opt/gifto-front" >> $GITHUB_ENV
             echo "BRANCH=main" >> $GITHUB_ENV
           else
             echo "No deployment for this event."
@@ -50,14 +48,8 @@ jobs:
           username: ${{ env.VPS_USER }}
           key: ${{ env.SSH_PRIVATE_KEY }}
           script: |
-            if [ -z "$DEPLOY_PATH" ]; then
-              echo "DEPLOY_PATH is not set"
-              exit 1
-            fi
-
-            mkdir -p "$DEPLOY_PATH"
-            cd "$DEPLOY_PATH" || exit 1
-
+            mkdir -p /opt/gifto-front
+            cd /opt/gifto-front
             if [ ! -d ".git" ]; then
               git clone -b $BRANCH git@github.com:sosthenenouebissi/gifto-front.git .
             else
