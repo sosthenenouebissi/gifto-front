@@ -10,7 +10,7 @@ services:
       - "traefik.http.routers.gifto.rule=Host(`gifto.sosthyone.fr`) || Host(`gifto.sosthyone.com`)"
       - "traefik.http.routers.gifto.entrypoints=websecure"
       - "traefik.http.routers.gifto.tls.certresolver=letsencrypt"
-      - "traefik.http.services.gifto.loadbalancer.server.port=3000"
+      - "traefik.http.services.gifto.loadbalancer.server.port=80"
     networks:
       - proxy
 
