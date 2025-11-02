@@ -52,7 +52,7 @@ jobs:
           port: ${{ env.VPS_PORT }}
           username: ${{ env.VPS_USER }}
           key: ${{ env.SSH_PRIVATE_KEY }}
-          envs: DEPLOY_PATH
+          envs: DEPLOY_PATH, BRANCH
           script: |
             mkdir -p $DEPLOY_PATH
             cd $DEPLOY_PATH
