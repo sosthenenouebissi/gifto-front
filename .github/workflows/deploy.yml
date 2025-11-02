@@ -28,8 +28,7 @@ jobs:
             echo "${{ secrets.SSH_DEV_PRIVATE_KEY }}" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
             echo "BRANCH=develop" >> $GITHUB_ENV
-            sed -i "s|{{SUBDOMAIN}}|gifto.local|g" docker-compose.yml
-            cat docker-compose.yml
+            echo "SUBDOMAIN=gifto.local" >> $GITHUB_ENV
           elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "VPS_HOST=${{ secrets.VPS_PROD_HOST }}" >> $GITHUB_ENV
             echo "VPS_PORT=22" >> $GITHUB_ENV
@@ -38,8 +37,7 @@ jobs:
             echo "${{ secrets.SSH_PROD_PRIVATE_KEY }}" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
             echo "BRANCH=main" >> $GITHUB_ENV
-            sed -i "s|{{SUBDOMAIN}}|gifto|g" docker-compose.yml
-            cat docker-compose.yml
+            echo "SUBDOMAIN=gifto" >> $GITHUB_ENV
           else
             echo "No deployment for this event."
             exit 0
@@ -52,13 +50,15 @@ jobs:
           port: ${{ env.VPS_PORT }}
           username: ${{ env.VPS_USER }}
           key: ${{ env.SSH_PRIVATE_KEY }}
-          envs: DEPLOY_PATH, BRANCH
+          envs: DEPLOY_PATH, BRANCH, SUBDOMAIN
           script: |
             mkdir -p $DEPLOY_PATH
             cd $DEPLOY_PATH
             if [ ! -d ".git" ]; then
               echo "Cloning repository into $DEPLOY_PATH"
               git clone -b "$BRANCH" git@github.com:sosthenenouebissi/gifto-front.git .
+              sed -i "s|{{SUBDOMAIN}}|$SUBDOMAIN|g" docker-compose.yml
+              cat docker-compose.yml
             else
               git fetch origin
               git checkout "$BRANCH"
