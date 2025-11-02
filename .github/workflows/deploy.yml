@@ -18,11 +18,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Rendre les scripts executable
-        run: chmod +x scripts/*
-
       - name: Set environment variables
-        run: scripts/define_variables.sh
+        run: |
+          source scripts/define_variables.sh
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.2.2
@@ -32,5 +30,6 @@ jobs:
           username: ${{ env.VPS_USER }}
           key: ${{ env.SSH_PRIVATE_KEY }}
           envs: DEPLOY_PATH, BRANCH, SUBDOMAIN
-          script: scripts/ssh_deploy.sh
+          script: |
+            source scripts/ssh_deploy.sh
             
