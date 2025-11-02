@@ -50,8 +50,14 @@ jobs:
           username: ${{ env.VPS_USER }}
           key: ${{ env.SSH_PRIVATE_KEY }}
           script: |
-            mkdir -p $DEPLOY_PATH
-            cd $DEPLOY_PATH
+            if [ -z "$DEPLOY_PATH" ]; then
+              echo "DEPLOY_PATH is not set"
+              exit 1
+            fi
+
+            mkdir -p "$DEPLOY_PATH"
+            cd "$DEPLOY_PATH" || exit 1
+
             if [ ! -d ".git" ]; then
               git clone -b $BRANCH git@github.com:sosthenenouebissi/gifto-front.git .
             else
