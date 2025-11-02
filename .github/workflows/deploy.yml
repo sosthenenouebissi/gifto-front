@@ -52,17 +52,11 @@ jobs:
           key: ${{ env.SSH_PRIVATE_KEY }}
           envs: DEPLOY_PATH, BRANCH, SUBDOMAIN
           script: |
-            mkdir -p $DEPLOY_PATH
+            rm -rf $DEPLOY_PATH
+            echo "Cloning repository into $DEPLOY_PATH"
+            git clone -b "$BRANCH" git@github.com:sosthenenouebissi/gifto-front.git "$DEPLOY_PATH"
             cd $DEPLOY_PATH
-            if [ ! -d ".git" ]; then
-              echo "Cloning repository into $DEPLOY_PATH"
-              git clone -b "$BRANCH" git@github.com:sosthenenouebissi/gifto-front.git .
-              sed -i "s|{{SUBDOMAIN}}|$SUBDOMAIN|g" docker-compose.yml
-              cat docker-compose.yml
-            else
-              git fetch origin
-              git checkout "$BRANCH"
-              git pull origin "$BRANCH"
-            fi
+            sed -i "s|{{SUBDOMAIN}}|$SUBDOMAIN|g" docker-compose.yml
+            cat docker-compose.yml
             docker compose down
             docker compose up -d --build
