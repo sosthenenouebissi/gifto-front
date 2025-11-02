@@ -1,17 +1,16 @@
 name: CI Workflow
 
 on:
-  push:
-    branches:
-      - main
-      - develop
   pull_request:
+    types:
+      - closed
     branches:
-      - main
       - develop
+      - main
 
 jobs:
   deploy:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -19,7 +18,7 @@ jobs:
 
       - name: Set environment variables
         run: |
-          if [[ (("${{ github.event_name }}" == "push") || ("${{ github.event_name }}" == "pull_request")) && "${{ github.ref }}" == "refs/heads/develop" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
             echo "VPS_HOST=${{ secrets.VPS_DEV_HOST }}" >> $GITHUB_ENV
             echo "VPS_PORT=2222" >> $GITHUB_ENV
             echo "VPS_USER=${{ secrets.VPS_DEV_USER }}" >> $GITHUB_ENV
@@ -27,7 +26,7 @@ jobs:
             echo "${{ secrets.SSH_DEV_PRIVATE_KEY }}" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
             echo "BRANCH=develop" >> $GITHUB_ENV
-          elif [[ (("${{ github.event_name }}" == "push") || ("${{ github.event_name }}" == "pull_request")) && "${{ github.ref }}" == "refs/heads/main" ]]; then
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "VPS_HOST=${{ secrets.VPS_PROD_HOST }}" >> $GITHUB_ENV
             echo "VPS_PORT=22" >> $GITHUB_ENV
             echo "VPS_USER=${{ secrets.VPS_PROD_USER }}" >> $GITHUB_ENV
