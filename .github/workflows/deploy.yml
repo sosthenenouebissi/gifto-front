@@ -28,7 +28,7 @@ jobs:
             echo "EOF" >> $GITHUB_ENV
             echo "DEPLOY_PATH=/opt/gifto-front" >> $GITHUB_ENV
             echo "BRANCH=develop" >> $GITHUB_ENV
-          elif [[ (("${{ github.event_name }}" == "push") || ("${{ github.event_name }}" == "pull_request")) && "${{ github.base_ref }}" == "main" ]]; then
+          elif [[ (("${{ github.event_name }}" == "push") || ("${{ github.event_name }}" == "pull_request")) && "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "VPS_HOST=${{ secrets.VPS_PROD_HOST }}" >> $GITHUB_ENV
             echo "VPS_PORT=22" >> $GITHUB_ENV
             echo "VPS_USER=${{ secrets.VPS_PROD_USER }}" >> $GITHUB_ENV
