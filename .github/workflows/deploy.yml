@@ -23,7 +23,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             if [ ! -d "/opt/gifto-front/.git" ]; then
-              mkdir -p /opt/gifto-front
+              sudo mkdir -p /opt/gifto-front
               git clone git@github.com:sosthenenouebissi/gifto-front.git /opt/gifto-front
             else
               cd /opt/gifto-front
