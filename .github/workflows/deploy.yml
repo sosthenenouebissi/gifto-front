@@ -18,7 +18,7 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "DEPLOY_PATH='/opt/gifto-front'" >> $GITHUB_ENV
+          echo "DEPLOY_PATH=/opt/gifto-front" >> $GITHUB_ENV
           if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
             echo "VPS_HOST=${{ secrets.VPS_DEV_HOST }}" >> $GITHUB_ENV
             echo "VPS_PORT=2222" >> $GITHUB_ENV
@@ -52,15 +52,15 @@ jobs:
           username: ${{ env.VPS_USER }}
           key: ${{ env.SSH_PRIVATE_KEY }}
           script: |
-            mkdir -p $DEPLOY_PATH
-            cd $DEPLOY_PATH
+            mkdir -p "$DEPLOY_PATH"
+            cd "$DEPLOY_PATH"
             if [ ! -d ".git" ]; then
               echo "Cloning repository into $DEPLOY_PATH"
-              git clone -b $BRANCH git@github.com:sosthenenouebissi/gifto-front.git $DEPLOY_PATH
+              git clone -b "$BRANCH" git@github.com:sosthenenouebissi/gifto-front.git .
             else
               git fetch origin
-              git checkout $BRANCH
-              git pull origin $BRANCH
+              git checkout "$BRANCH"
+              git pull origin "$BRANCH"
             fi
             docker compose down
             docker compose up -d --build
