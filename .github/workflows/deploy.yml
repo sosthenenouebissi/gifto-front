@@ -28,7 +28,7 @@ jobs:
             echo "${{ secrets.SSH_DEV_PRIVATE_KEY }}" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
             echo "BRANCH=develop" >> $GITHUB_ENV
-            echo "SUBDOMAIN=gifto.local" >> $GITHUB_ENV
+            echo "SUBDOMAIN=Host(`gifto.local.sosthyone.fr`)" >> $GITHUB_ENV
           elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "VPS_HOST=${{ secrets.VPS_PROD_HOST }}" >> $GITHUB_ENV
             echo "VPS_PORT=22" >> $GITHUB_ENV
@@ -37,7 +37,7 @@ jobs:
             echo "${{ secrets.SSH_PROD_PRIVATE_KEY }}" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
             echo "BRANCH=main" >> $GITHUB_ENV
-            echo "SUBDOMAIN=gifto" >> $GITHUB_ENV
+            echo "SUBDOMAIN=Host(`gifto.sosthyone.fr`) || Host(`gifto.sosthyone.com`)" >> $GITHUB_ENV
           else
             echo "No deployment for this event."
             exit 0
