@@ -18,7 +18,7 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "DEPLOY_PATH='/opt/gifto-front'" >> $GITHUB_ENV
+          echo "DEPLOY_PATH=/opt/gifto-front" >> $GITHUB_ENV
           if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
             echo "VPS_HOST=${{ secrets.VPS_DEV_HOST }}" >> $GITHUB_ENV
             echo "VPS_PORT=2222" >> $GITHUB_ENV
