@@ -7,7 +7,7 @@ services:
       - "3000"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.gifto.rule=Host(`gifto.sosthyone.fr`) || Host(`gifto.sosthyone.com`)"
+      - "traefik.http.routers.gifto.rule=Host(`{{SUBDOMAIN}}.sosthyone.fr`) || Host(`{{SUBDOMAIN}}.sosthyone.com`)"
       - "traefik.http.routers.gifto.entrypoints=websecure"
       - "traefik.http.routers.gifto.tls.certresolver=letsencrypt"
       - "traefik.http.services.gifto.loadbalancer.server.port=3000"
