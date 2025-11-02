@@ -27,6 +27,7 @@ jobs:
             echo "EOF" >> $GITHUB_ENV
             echo "BRANCH=develop" >> $GITHUB_ENV
             sed -i "s|{{SUBDOMAIN}}|gifto.local|g" docker-compose.yml
+            cat docker-compose.yml
           elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "VPS_HOST=${{ secrets.VPS_PROD_HOST }}" >> $GITHUB_ENV
             echo "VPS_PORT=22" >> $GITHUB_ENV
@@ -36,6 +37,7 @@ jobs:
             echo "EOF" >> $GITHUB_ENV
             echo "BRANCH=main" >> $GITHUB_ENV
             sed -i "s|{{SUBDOMAIN}}|gifto|g" docker-compose.yml
+            cat docker-compose.yml
           else
             echo "No deployment for this event."
             exit 0
