@@ -23,11 +23,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             if [ ! -d "/opt/gifto-front/.git" ]; then
-              sudo mkdir -p /opt/gifto-front
-              sudo git clone git@github.com:sosthenenouebissi/gifto-front.git /opt/gifto-front
+              mkdir -p /opt/gifto-front
+              git clone git@github.com:sosthenenouebissi/gifto-front.git /opt/gifto-front
             else
               cd /opt/gifto-front
-              sudo git pull origin main
+              git pull origin main
             fi
             sudo docker compose down
             sudo docker compose up -d --build
