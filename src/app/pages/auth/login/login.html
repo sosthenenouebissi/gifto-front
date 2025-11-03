@@ -1,6 +1,6 @@
-<div class="flex flex-col justify-center h-100">
+<div class="flex flex-col justify-center mt-8">
   <div class="p-4 text-center">
-    <h4 class="text-3xl font-black">GIFTO</h4>
+    <h4 class="text-3xl font-black cursor-pointer" routerLink="/">GIFTO</h4>
     <p>Connectez vous pour continuer</p>
   </div>
   <div class="flex justify-center">
@@ -19,7 +19,7 @@
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
             </g>
           </svg>
-          <input type="email" placeholder="Email" required />
+          <input name="email" type="email" placeholder="Email" required />
         </label>
         <div class="validator-hint hidden">Saisissez une adresse e-mail valide</div>
       </div>
@@ -39,7 +39,7 @@
               <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
             </g>
           </svg>
-          <input type="password" required placeholder="Mot de passe" />
+          <input name="password" type="password" required placeholder="Mot de passe" />
         </label>
       </div>
       <button class="btn btn-primary" type="submit">Connexion</button>
@@ -48,7 +48,7 @@
   <div class="flex justify-center p-4">
     <div>
       <span>Vous n'avez pas de compte ? </span>
-      <a class="link">S'inscrire</a>
+      <a class="link" routerLink="/register">S'inscrire</a>
     </div>
   </div>
 </div>
