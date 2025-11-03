@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
 
 @plugin "@tailwindcss/typography" {
@@ -7,8 +8,13 @@
 @plugin "daisyui" {
 }
 
+@theme {
+  --font-roboto: 'Roboto', sans-serif;
+}
+
 /* Responsive sizing */
 html {
+  font-family: var(--font-roboto);
 }
 
 /* Tablet and larger */
