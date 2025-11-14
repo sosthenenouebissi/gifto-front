@@ -4,7 +4,7 @@
     <p>Connectez vous pour continuer</p>
   </div>
   <div class="flex justify-center">
-    <form action="" class="grid gap-4 w-xs">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="grid gap-4 w-xs">
       <div>
         <label class="input validator">
           <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -19,7 +19,7 @@
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
             </g>
           </svg>
-          <input name="email" type="email" placeholder="Email" required />
+          <input formControlName="username" type="email" placeholder="Email" required />
         </label>
         <div class="validator-hint hidden">Saisissez une adresse e-mail valide</div>
       </div>
@@ -39,7 +39,13 @@
               <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
             </g>
           </svg>
-          <input name="password" type="password" required placeholder="Mot de passe" />
+          <input
+            formControlName="password"
+            name="password"
+            type="password"
+            required
+            placeholder="Mot de passe"
+          />
         </label>
       </div>
       <button class="btn btn-primary" type="submit">Connexion</button>
